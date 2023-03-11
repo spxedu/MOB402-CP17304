@@ -19,6 +19,8 @@ const sv = http.createServer( (req, res)=>{
             res.end('Khong xac dinh dia chi trang web');
         break;
     }
+
+    // res.end();
 })
 
 sv.listen(8080);
