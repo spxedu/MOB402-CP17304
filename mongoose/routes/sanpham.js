@@ -12,4 +12,8 @@ var uploader = multer( { dest:'./tmp'}) ;
 router.post('/add', uploader.single('file_anh') , spCtrl.add);
 
 
+router.get('/add-san-pham', spCtrl.addSanPham);
+router.post('/add-san-pham', spCtrl.addSanPham);
+
+
 module.exports = router;
