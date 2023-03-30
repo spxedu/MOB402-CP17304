@@ -1,7 +1,12 @@
 var fs = require('fs');
+var myMD = require('../models/sanpham.model');
 
-exports.list = (q,s,n)=>{
-    s.render('sanpham/list')
+
+exports.list = async (req, res, next)=>{
+
+    let list = await myMD.spModel.find().sort( { name: 1 } );
+    
+    res.render('sanpham/list', { listSP: list})
 }
 exports.add = (req, res, next)=>{
     var url = '';
