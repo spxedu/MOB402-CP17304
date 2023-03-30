@@ -58,7 +58,7 @@ exports.addSanPham = async (req,res,next)=>{
             msg = 'Thêm mới thành công';
 
         } catch (error) {
-            msg = 'Lỗi '+ error.message();
+            msg = 'Lỗi '+ error.message;
             console.log(error);
         }
 
