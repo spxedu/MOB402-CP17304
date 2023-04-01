@@ -75,3 +75,40 @@ exports.addSanPham = async (req,res,next)=>{
 
     res.render('sanpham/add-san-pham', {msg: msg, listTL:listTL });
 }
+
+exports.editSanPham = async (req,res,next)=>{
+    let msg = '';
+    let idsp = req.params.idsp;
+    // lấy thông tin sản phẩm để sửa, tự thêm khối truy catch để bắt lỗi. 
+    let objSP = await myMD.spModel.findById(idsp);
+    let listTL = await myMD.theloaiModel.find();
+
+    if(req.method =='POST'){
+        // kiểm tra hợp lệ dữ liệu nếu có....
+
+        // tạo model để gán dữ liệu
+        let objSP = new myMD.spModel();
+        objSP.name = req.body.name;
+        objSP.price = req.body.price;
+        objSP.description = req.body.description;
+        objSP.id_theloai = req.body.theloai;
+
+        objSP._id = idsp;// thêm cho chức năng sửa
+        // ghi vào CSDL
+        try {
+            // let new_sp = await objSP.save();
+            // console.log(new_sp);
+            // msg = 'Thêm mới thành công';
+
+            await myMD.spModel.findByIdAndUpdate(idsp, objSP);
+            msg = 'Đã cập nhật thành công';
+
+        } catch (error) {
+            msg = 'Lỗi '+ error.message;
+            console.log(error);
+        }
+
+    }
+
+    res.render('sanpham/edit-san-pham',{msg: msg, objSP: objSP, listTL:listTL});
+}
